@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "Gulfs Display";
+    src: url("Fonts/GulfsDisplay-Normal.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* BODY */
+body {
+    background-color: #884028;
+    margin: 0;
+    padding: 0;
+    font-family: "Gulfs Display", sans-serif;
+}
+
+/* HEADER */
+h1 {
+    text-align: center;
+    color: #fff6d3;
+    margin-top: 40px;
+    padding-bottom: 85px;
+}
+
+/* QUIZ CONTAINER */
+.quizcontainer {
+    background-color: #884028;
+    border: solid #fff6d3;
+    border-radius: 18px;
+    border-width: 6px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    margin: 40px auto;
+    padding: 60px;
+    box-sizing: border-box;
+    max-width: 95%;
+    max-height: 95%;
+    height: 800px;
+}
+
+/* ROWS */
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* ANSWERS */
+.answer {
+    flex: 1;
+    border: 3px solid #fff6d3;
+    border-radius: 20px;
+    background-color: #fff6d3;
+    color: #884028;
+    font-weight: bold;
+    font-size: 35px;
+    padding: 75px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    text-align: center;
+    height: 120px; 
+    display: flex;
+    align-items: center;  
+    justify-content: center; 
+    
+}
