@@ -3,7 +3,11 @@ name: Build Website
 # Trigger workflow on push to main branch
 on:
   push:
-    branches: [ Quiz-page ]
+    branches:
+      - '**'   # run on pushes to any branch
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
   build:
