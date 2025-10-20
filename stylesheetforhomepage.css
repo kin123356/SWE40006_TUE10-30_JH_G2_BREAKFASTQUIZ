@@ -9,8 +9,8 @@
   --bg: #884028;
   --text: #fff6d3;
   --text-muted: #ffecc1;
-  --surface: #a24e33; /* slightly lighter than bg */
-  --surface-2: #6e311f; /* slightly darker than bg */
+  --surface: #a24e33; 
+  --surface-2: #6e311f; 
   --accent: #ffffff;
 }
 
