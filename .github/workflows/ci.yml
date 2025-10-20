@@ -1,5 +1,4 @@
-
-   name: Build Website (HTML + Flask)
+name: Build Website (HTML + Flask)
 
 on:
   push:
@@ -72,4 +71,4 @@ jobs:
           ls -al *.css || echo "No CSS files found in root."
 
       - name: Build project complete
-        run: echo "✅ Build completed successfully!"
+        run:
