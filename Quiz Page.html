@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Quiz Page</title>
     <link rel="stylesheet" href="Style sheet for quiz.css">
 </head>
@@ -13,15 +12,73 @@
         <h1>HOW DO YOU NORMALLY FEEL WHEN YOU WAKE UP?</h1>
 
         <div class="row">
-            <p id="A" class="answer">A. Ready to take on the world</p>
-            <p id="B" class="answer">B. Still half asleep</p>
+            <button class="answer">A. Ready to take on the world</button>
+            <button class="answer">B. Still half asleep</button>
         </div>
 
         <div class="row">
-            <p id="C" class="answer">C. Cheerful and excited for breakfast</p>
-            <p id="D" class="answer">D. Calm and refreshed</p>
+            <button class="answer">C. Cheerful and excited for breakfast</button>
+            <button class="answer">D. Calm and refreshed</button>
         </div>
     </div>
+
+    <div class="quizcontainer">
+        <h1>WHAT IS YOUR FAVOURITE SEASON?</h1>
+
+        <div class="row">
+            <button class="answer">A. Summer</button>
+            <button class="answer">B. Autumn</button>
+        </div>
+
+        <div class="row">
+            <button class="answer">C. Winter</button>
+            <button class="answer">D. Spring</button>
+        </div>
+    </div>
+
+    <div class="quizcontainer">
+        <h1>HOW OFTEN DO YOU EXERCISE?</h1>
+
+        <div class="row">
+            <button class="answer">A. Everyday</button>
+            <button class="answer">B. Three times a week</button>
+        </div>
+
+        <div class="row">
+            <button class="answer">C. Once a week</button>
+            <button class="answer">D. None at all</button>
+        </div>
+    </div>
+
+    <div class="quizcontainer">
+        <h1>WHATS YOUR FAVOURITE TYPE OF HOLIDAY?</h1>
+
+        <div class="row">
+            <button class="answer">A. Tropical</button>
+            <button class="answer">B. Adventure</button>
+        </div>
+
+        <div class="row">
+            <button class="answer">C. City</button>
+            <button class="answer">D. Luxury</button>
+        </div>
+    </div>
+
+    <script>
+        // When any answer button is clicked...
+        const buttons = document.querySelectorAll('.answer');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove "selected" class from all buttons in the same question
+                const parentRow = button.closest('.quizcontainer');
+                parentRow.querySelectorAll('.answer').forEach(btn => btn.classList.remove('selected'));
+                
+                // Add "selected" class to the clicked button
+                button.classList.add('selected');
+            });
+        });
+    </script>
+    
 </body>
 </html>
-

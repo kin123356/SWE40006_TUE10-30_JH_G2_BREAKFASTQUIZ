@@ -46,8 +46,8 @@ h1 {
     margin: 20px 0;
 }
 
-/* ANSWERS */
-.answer {
+/* ANSWER BUTTONS */
+button.answer {
     flex: 1;
     border: 3px solid #fff6d3;
     border-radius: 20px;
@@ -57,11 +57,41 @@ h1 {
     font-size: 35px;
     padding: 75px;
     box-sizing: border-box;
-    transition: transform 0.2s ease, background-color 0.2s ease;
     text-align: center;
-    height: 120px; 
+    height: 120px;
     display: flex;
-    align-items: center;  
-    justify-content: center; 
-    
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: "Gulfs Display", sans-serif;
+
+   
+    appearance: none;
 }
+
+
+button.answer:hover {
+    background-color: #e7ddb5;
+    border-color: #e7ddb5;
+    transform: scale(1.03);
+}
+
+
+button.answer:active {
+    transform: scale(0.97);
+    background-color: #d9c79c;
+}
+
+
+button.answer:focus {
+    outline: 3px solid #fff6d3;
+    outline-offset: 4px;
+}
+
+button.answer.selected {
+    background-color: #d9c79c;  
+    border-color: #fff6d3;
+    transform: scale(0.98);
+}
+
