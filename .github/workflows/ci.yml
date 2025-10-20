@@ -3,11 +3,11 @@ name: Build Website (HTML + Flask)
 on:
   push:
     branches:
-      - '**'   # run on any branch
+      - '**'   #This lets us run on any branch
   pull_request:
     branches:
       - '**'
-  workflow_dispatch:  # lets you run manually from GitHub
+  workflow_dispatch:  #Can let us manually run from GitHub
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # --- Node setup (optional, for JS tools) ---
+      #optional node setup
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,7 +31,7 @@ jobs:
         run: |
           if [ -f package.json ]; then npm test || echo "No Node tests found"; else echo "No Node tests"; fi
 
-      # --- Python setup (for Flask) ---
+      #Python setup (for Flask)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -51,7 +51,7 @@ jobs:
             echo "No Flask app found — skipping Flask run."
           fi
 
-      # --- Static site check (HTML/CSS) ---
+      #Static site check (HTML/CSS)
       - name: Verify HTML/CSS presence
         run: |
           echo "Checking for HTML and CSS files..."
