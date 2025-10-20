@@ -8,114 +8,110 @@
     
 </head>
 
-
-
 <body>
+    <!-- Hidden form to submit selections to Flask -->
+    <form id="quizForm" action="/result" method="POST" style="display:none;">
+        <input type="hidden" name="q1" id="q1" />
+        <input type="hidden" name="q2" id="q2" />
+        <input type="hidden" name="q3" id="q3" />
+        <input type="hidden" name="q4" id="q4" />
+    </form>
 
-    <nav class="navbar">
-        <ul>
-            <li><a href="homepage.html">Home</a></li>
-        </ul>  
-      </nav>
-
-      
-    <div class="quizcontainer">
+    <div class="quizcontainer" data-question="q1">
         <h1>HOW DO YOU NORMALLY FEEL WHEN YOU WAKE UP?</h1>
 
         <div class="row">
-            <button class="answer">A. Ready to take on the world</button>
-            <button class="answer">B. Still half asleep</button>
+            <button type="button" class="answer" data-option="A">A. Ready to take on the world</button>
+            <button type="button" class="answer" data-option="B">B. Still half asleep</button>
         </div>
 
         <div class="row">
-            <button class="answer">C. Cheerful and excited for breakfast</button>
-            <button class="answer">D. Calm and refreshed</button>
+            <button type="button" class="answer" data-option="C">C. Cheerful and excited for breakfast</button>
+            <button type="button" class="answer" data-option="D">D. Calm and refreshed</button>
         </div>
     </div>
 
-    <div class="quizcontainer">
+    <div class="quizcontainer" data-question="q2">
         <h1>WHAT IS YOUR FAVOURITE SEASON?</h1>
 
         <div class="row">
-            <button class="answer">A. Summer</button>
-            <button class="answer">B. Autumn</button>
+            <button type="button" class="answer" data-option="A">A. Summer</button>
+            <button type="button" class="answer" data-option="B">B. Autumn</button>
         </div>
 
         <div class="row">
-            <button class="answer">C. Winter</button>
-            <button class="answer">D. Spring</button>
+            <button type="button" class="answer" data-option="C">C. Winter</button>
+            <button type="button" class="answer" data-option="D">D. Spring</button>
         </div>
     </div>
 
-    <div class="quizcontainer">
+    <div class="quizcontainer" data-question="q3">
         <h1>HOW OFTEN DO YOU EXERCISE?</h1>
 
         <div class="row">
-            <button class="answer">A. Everyday</button>
-            <button class="answer">B. Three times a week</button>
+            <button type="button" class="answer" data-option="A">A. Everyday</button>
+            <button type="button" class="answer" data-option="B">B. Three times a week</button>
         </div>
 
         <div class="row">
-            <button class="answer">C. Once a week</button>
-            <button class="answer">D. None at all</button>
+            <button type="button" class="answer" data-option="C">C. Once a week</button>
+            <button type="button" class="answer" data-option="D">D. None at all</button>
         </div>
     </div>
 
-    <div class="quizcontainer">
+    <div class="quizcontainer" data-question="q4">
         <h1>WHATS YOUR FAVOURITE TYPE OF HOLIDAY?</h1>
 
         <div class="row">
-            <button class="answer">A. Tropical</button>
-            <button class="answer">B. Adventure</button>
+            <button type="button" class="answer" data-option="A">A. Tropical</button>
+            <button type="button" class="answer" data-option="B">B. Adventure</button>
         </div>
 
         <div class="row">
-            <button class="answer">C. City</button>
-            <button class="answer">D. Luxury</button>
+            <button type="button" class="answer" data-option="C">C. City</button>
+            <button type="button" class="answer" data-option="D">D. Luxury</button>
         </div>
     </div>
 
     <div class="result-button-container">
-        <a href="Result page (Croissant).html">
-          <button class="resultBtn">Find Your Breakfast!</button>
-        </a>
-      </div>
+        <button type="button" id="submitQuiz" class="resultBtn">Find Your Breakfast!</button>
+    </div>
       
-      
+    
 
     <script>
         
+        const selections = {}; // { q1: 'A', q2: 'B', ... }
         const buttons = document.querySelectorAll('.answer');
-        
         buttons.forEach(button => {
             button.addEventListener('click', () => {
-                
-                const parentRow = button.closest('.quizcontainer');
-                parentRow.querySelectorAll('.answer').forEach(btn => btn.classList.remove('selected'));
-                
-                
+                const container = button.closest('.quizcontainer');
+                const qName = container.getAttribute('data-question');
+                // Unselect others in this question
+                container.querySelectorAll('.answer').forEach(btn => btn.classList.remove('selected'));
+                // Select this one
                 button.classList.add('selected');
+                // Store selection
+                selections[qName] = button.getAttribute('data-option');
             });
         });
 
-        const resultBtn = document.querySelector('.resultBtn');
-
-resultBtn.addEventListener('click', (e) => {
-    const quizContainers = document.querySelectorAll('.quizcontainer');
-    let allAnswered = true;
-
-    quizContainers.forEach(container => {
-        const selected = container.querySelector('.answer.selected');
-        if (!selected) allAnswered = false;
-    });
-
-    if (!allAnswered) {
-        e.preventDefault(); // stops navigation
-        alert('Please answer all questions before continuing!');
-    }
-    // if allAnswered is true, the link will work normally
-});
-
+        document.getElementById('submitQuiz').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Validate all 4 questions answered
+            const required = ['q1','q2','q3','q4'];
+            for (const q of required) {
+                if (!selections[q]) { alert('Please answer all questions before continuing.'); return; }
+            }
+            console.log('[QUIZ] Submitting selections', selections);
+            // Fill hidden form inputs
+            document.getElementById('q1').value = selections.q1;
+            document.getElementById('q2').value = selections.q2;
+            document.getElementById('q3').value = selections.q3;
+            document.getElementById('q4').value = selections.q4;
+            // Submit to Flask
+            document.getElementById('quizForm').submit();
+        });
     </script>
     
 </body>
