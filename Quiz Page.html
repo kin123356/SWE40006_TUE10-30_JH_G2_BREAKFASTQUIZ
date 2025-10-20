@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Page</title>
     <link rel="stylesheet" href="Style sheet for quiz.css">
+    
 </head>
 
 <body>
@@ -64,17 +65,25 @@
         </div>
     </div>
 
+    <div class="result-button-container">
+        <a href="Result page.html">
+          <button class="resultBtn">Find Your Breakfast!</button>
+        </a>
+      </div>
+      
+      
+
     <script>
-        // When any answer button is clicked...
+        
         const buttons = document.querySelectorAll('.answer');
         
         buttons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove "selected" class from all buttons in the same question
+                
                 const parentRow = button.closest('.quizcontainer');
                 parentRow.querySelectorAll('.answer').forEach(btn => btn.classList.remove('selected'));
                 
-                // Add "selected" class to the clicked button
+                
                 button.classList.add('selected');
             });
         });
