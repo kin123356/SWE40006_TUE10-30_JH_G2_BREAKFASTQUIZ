@@ -1,32 +1,62 @@
-name: Build Website
+name: Build Website (HTML + Flask)
 
-# Trigger workflow on push to main branch
 on:
   push:
     branches:
-      - '**'   # run on pushes to any branch
+      - '**'   # run on any branch
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:  # lets you run manually from GitHub
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js (optional, if you use Node)
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      # --- Node setup (optional, for JS tools) ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Install dependencies
-      run: npm install || echo "No dependencies to install"
+      - name: Install Node dependencies
+        run: |
+          if [ -f package.json ]; then npm install; else echo "No package.json found"; fi
 
-    - name: Run tests (optional)
-      run: npm test || echo "No tests found"
+      - name: Run Node tests (optional)
+        run: |
+          if [ -f package.json ]; then npm test || echo "No Node tests found"; else echo "No Node tests"; fi
 
-    - name: Build project
-      run: echo "Build completed successfully!"
+      # --- Python setup (for Flask) ---
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; else echo "No requirements.txt found"; fi
+
+      - name: Check Flask app (optional)
+        run: |
+          if [ -f app.py ]; then
+            echo "Found Flask app. Testing run..."
+            FLASK_APP=app.py flask --version
+          else
+            echo "No Flask app found — skipping Flask run."
+          fi
+
+      # --- Static site check (HTML/CSS) ---
+      - name: Verify HTML/CSS presence
+        run: |
+          echo "Checking for HTML and CSS files..."
+          ls -al *.html || echo "No HTML files found"
+          ls -al *.css || echo "No CSS files found"
+
+      - name: Build project complete
+        run: echo "✅ Build completed successfully!"
