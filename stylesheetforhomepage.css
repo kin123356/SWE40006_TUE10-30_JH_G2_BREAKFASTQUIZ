@@ -46,29 +46,23 @@ h1, h2, h3 {
   font-weight: 400;
 }
 
-/* Nav */
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  padding: 0;
-  margin: 0;
-}
-nav a {
-  color: var(--text);
+
+.navbar ul{
   text-decoration: none;
-  background: var(--surface-2);
-  padding: 0.4rem 0.8rem;
-  border-radius: 999px;
-  border: 2px solid transparent;
-  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
-  font-family: 'Gulfs Display', sans-serif;
+  list-style-type: none;
 }
-nav a:hover {
-  transform: translateY(-1px);
-  background: var(--surface);
-  border-color: var(--text);
+
+.navbar a {
+  text-decoration: none;
+  color:#6e311f;
+  border-style: solid;
+  padding: 10px;
+  border-color: #fff6d3;
+  background-color: #fff6d3;
+  border-radius: 20px;
 }
+
+
 
 /* Main content */
 main {
