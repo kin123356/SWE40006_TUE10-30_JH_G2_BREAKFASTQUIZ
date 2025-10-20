@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 
-# Serve current project root as static so existing paths like images/* and styles.css still work
 app = Flask(__name__, static_folder='.', static_url_path='')
 
 
