@@ -1,0 +1,212 @@
+@font-face {
+    font-family: "Gulfs Display";
+    src: url("Fonts/GulfsDisplay-Normal.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+  --bg: #884028;
+  --text: #fff6d3;
+  --text-muted: #ffecc1;
+  --surface: #a24e33; /* slightly lighter than bg */
+  --surface-2: #6e311f; /* slightly darker than bg */
+  --accent: #ffffff;
+}
+
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Gulfs Display', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+  line-height: 1.4;
+}
+
+/* Layout */
+header, main, footer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.2rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* nav aligned to the right like the poster */
+  gap: 1rem;
+}
+
+h1, h2, h3 {
+  margin: 0.2rem 0 0.8rem;
+  letter-spacing: 0.5px;
+  font-family: 'Gulfs Display', sans-serif;
+  font-weight: 400;
+}
+
+/* Nav */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface-2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+  font-family: 'Gulfs Display', sans-serif;
+}
+nav a:hover {
+  transform: translateY(-1px);
+  background: var(--surface);
+  border-color: var(--text);
+}
+
+/* Main content */
+main {
+  padding-top: 2rem;
+}
+
+p { color: var(--text-muted); }
+
+/* Buttons */
+.button, button, input[type="button"], input[type="submit"] {
+  font-family: 'Gulfs Display', sans-serif;
+  color: var(--bg);
+  background-color: var(--text); /* beige */
+  border: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 400; /* use Regular to match available font file */
+  font-synthesis-weight: none; /* prevent browser from faking bold */
+  letter-spacing: 0.5px;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+  text-decoration: none; /* remove underline when used on <a> */
+  display: inline-block;
+}
+.button:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+
+.hero {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.2rem;
+  transform: translateY(-10vh); /* move hero up a bit more */
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  opacity: 0.95;
+  margin: 0;
+}
+
+/* Utility: keep phrase on a single line */
+.nowrap { white-space: nowrap; }
+
+.display-title {
+  font-size: clamp(2.6rem, 10vw, 6.8rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0.2rem 0 0.6rem;
+  color: var(--text);
+  font-family: 'Gulfs Display', sans-serif;
+  font-weight: 400; /* use Regular since that's the file we have */
+  font-synthesis-weight: none; /* prevent browser from faking bold */
+}
+
+.start-btn {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  padding: 0.7rem 1.3rem;
+  background: var(--text); /* match beige text color */
+  color: var(--bg);
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  border: 3px solid rgba(0,0,0,0.1);
+  text-decoration: none; /* ensure no underline */
+}
+
+.start-btn:hover { opacity: 0.95; transform: translateY(-2px); }
+
+/* Responsive tweaks */
+/* Medium screens: scale decorations down slightly */
+@media (max-width: 1024px) {
+  .deco-left-bottom { width: min(58vw, 680px); left: -12vw; bottom: -12vw; }
+  .deco-right-top { width: min(48vw, 620px); right: -12vw; top: -10vw; }
+  .deco-right-bottom { width: min(42vw, 620px); right: -10vw; bottom: -10vw; }
+}
+
+/* Tablet: reduce sizes and bring more on-screen */
+@media (max-width: 900px) {
+  .hero { transform: translateY(-6vh); }
+  .display-title { font-size: clamp(2.4rem, 9vw, 6rem); }
+  .deco-left-bottom { width: min(54vw, 560px); left: -10vw; bottom: -12vw; }
+  .deco-right-top { width: min(44vw, 560px); right: -10vw; top: -10vw; }
+  .deco-right-bottom { width: min(38vw, 520px); right: -10vw; bottom: -10vw; }
+}
+
+/* Mobile: center hero, allow wrap, and avoid decoration overlap */
+@media (max-width: 640px) {
+  nav ul { gap: 0.6rem; }
+  .hero { padding: 1.2rem; transform: none; }
+  .display-title { font-size: clamp(2.1rem, 9.5vw, 4rem); }
+  .nowrap { white-space: normal; }
+  .deco-left-bottom { width: 68vw; left: -18vw; bottom: -18vw; transform: rotate(20deg); }
+  .deco-right-top { width: 56vw; right: -22vw; top: -18vw; }
+  .deco-right-bottom { width: 52vw; right: -18vw; bottom: -18vw; }
+}
+
+/* Decorative background illustrations */
+.decorations {
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* behind header/hero */
+  pointer-events: none;
+}
+.deco {
+  position: absolute;
+  filter: drop-shadow(0 14px 24px rgba(0,0,0,0.25));
+  user-select: none;
+}
+
+/* Approximate poster layout */
+.deco-left-bottom { 
+  left: -15vw; 
+  bottom: -15vw; 
+  width: min(60vw, 720px);
+  transform: rotate(25deg);
+  transform-origin: center;
+}
+.deco-right-top { 
+  right: -12vw; 
+  top: -10vw; 
+  width: min(50vw, 700px);
+  transform: rotate(45deg);
+}
+.deco-right-bottom { 
+  right: -10vw; 
+  bottom: -10vw; 
+  width: min(44vw, 680px);
+  transform: rotate(-40deg);
+}
+
+/* Make sure content sits above */
+header, main { position: relative; z-index: 1; }
