@@ -138,6 +138,11 @@ button.answer.selected {
     border-radius: 20px;
   }
 
+  .navbar a:hover {
+    background-color: #e7ddb5;
+    border-color: #e7ddb5;
+  }
+
   .images {
     display: block;
     margin-left: auto;
