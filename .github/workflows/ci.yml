@@ -1,32 +1,74 @@
-name: Build Website
+name: Build Website (HTML + Flask)
 
-# Trigger workflow on push to main branch
 on:
   push:
     branches:
-      - '**'   # run on pushes to any branch
+      - '**'
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js (optional, if you use Node)
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Install dependencies
-      run: npm install || echo "No dependencies to install"
+      - name: Install Node dependencies
+        run: |
+          if [ -f package.json ]; then
+            echo "Installing Node dependencies..."
+            npm install
+          else
+            echo "No package.json found — skipping Node setup."
+          fi
 
-    - name: Run tests (optional)
-      run: npm test || echo "No tests found"
+      - name: Run Node tests
+        run: |
+          if [ -f package.json ]; then
+            echo "Running Node tests..."
+            npm test || echo "No Node tests found."
+          else
+            echo "No Node tests to run."
+          fi
 
-    - name: Build project
-      run: echo "Build completed successfully!"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          echo "Installing Python dependencies..."
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "No requirements.txt found — skipping Python installs."
+          fi
+
+      - name: Check for Flask app
+        run: |
+          if [ -f app.py ]; then
+            echo "Found Flask app. Checking Flask installation..."
+            flask --version || echo "Flask not installed yet."
+          else
+            echo "No Flask app found — skipping Flask check."
+          fi
+
+      - name: Verify HTML and CSS files
+        run: |
+          echo "Checking for HTML and CSS files..."
+          ls -al *.html || echo "No HTML files found in root."
+          ls -al *.css || echo "No CSS files found in root."
+
+      - name: Build project complete
+        run:
