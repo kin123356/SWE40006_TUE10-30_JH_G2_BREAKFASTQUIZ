@@ -18,7 +18,7 @@ h1 {
     text-align: center;
     color: #fff6d3;
     margin-top: 40px;
-    padding-bottom: 85px;
+    padding-bottom: 5px;
 }
 
 /* QUIZ CONTAINER */
@@ -147,8 +147,17 @@ button.answer.selected {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: auto;
+    margin-top: -30px;
     width: 50%;
+  }
+
+  .breakiedescription {
+    font-family: "Gulfs Display";
+    color: #fff6d3;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 10px;
+
   }
   
   
