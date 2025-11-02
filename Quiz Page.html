@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <!-- Hidden form to submit selections to Flask -->
+    
     <form id="quizForm" action="/result" method="POST" style="display:none;">
         <input type="hidden" name="q1" id="q1" />
         <input type="hidden" name="q2" id="q2" />
@@ -74,47 +74,58 @@
     </div>
 
     <div class="result-button-container">
-        <button type="button" id="submitQuiz" class="resultBtn">Find Your Breakfast!</button>
+        <button type="button" id="submitQuiz" class="resultBtn" >Find Your Breakfast!</button>
     </div>
-      
-    
 
     <script>
-        
-        const selections = {}; // { q1: 'A', q2: 'B', ... }
-        const buttons = document.querySelectorAll('.answer');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const container = button.closest('.quizcontainer');
-                const qName = container.getAttribute('data-question');
-                // Unselect others in this question
-                container.querySelectorAll('.answer').forEach(btn => btn.classList.remove('selected'));
-                // Select this one
-                button.classList.add('selected');
-                // Store selection
-                selections[qName] = button.getAttribute('data-option');
-            });
-        });
+const buttons = document.querySelectorAll('.answer');
+const selections = {};
 
-        const resultBtn = document.querySelector('.resultBtn');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const container = button.closest('.quizcontainer');
+        const qName = container.getAttribute('data-question');
 
-resultBtn.addEventListener('click', (e) => {
-    const quizContainers = document.querySelectorAll('.quizcontainer');
-    let allAnswered = true;
+        container.querySelectorAll('.answer').forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
 
-    quizContainers.forEach(container => {
-        const selected = container.querySelector('.answer.selected');
-        if (!selected) allAnswered = false;
+        selections[qName] = button.getAttribute('data-option');
     });
-
-    if (!allAnswered) {
-        e.preventDefault(); // stops navigation
-        alert('Please answer all questions before continuing!');
-    }
-    // if allAnswered is true, the link will work normally
 });
 
-    </script>
+const resultBtn = document.getElementById('submitQuiz');
+
+resultBtn.addEventListener('click', () => {
+   
+    const allAnswered = ['q1','q2','q3','q4'].every(q => selections[q]);
+    if (!allAnswered) {
+        alert('Please answer all questions before continuing!');
+        return;
+    }
+
+    
+    let resultPage = '';
+
+   
+    switch(selections['q1']) {
+        case 'A':
+            resultPage = 'Resultpage(Croissant)';
+            break;
+        case 'B':
+            resultPage = 'Resultpage(Egg)';
+            break;
+        case 'C':
+            resultPage = 'Resultpage(Croissant)'; 
+            break;
+        case 'D':
+            resultPage = 'Resultpage(Egg)'; 
+    }
+
+   
+    window.location.href = resultPage;
+});
+</script>
+
     
 </body>
 </html>
